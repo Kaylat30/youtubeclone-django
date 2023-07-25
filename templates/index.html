@@ -1,0 +1,479 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>YouTube</title>
+  <link rel="icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'styles/video.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/body.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/sidebar.css' %}">
+</head>
+<body>
+  
+  <div class="header-div">
+    <div class="left-section">
+      <img class="menu-icon" src="{% static 'icons/hamburger-menu.svg' %}">
+      <img class="youtube-icon" src="{% static 'icons/youtube-logo.svg' %}">
+    </div>
+    <div class="middle-section">
+      <input class="search-bar"  type="text" placeholder="Search">
+      <img class="search-icon" src="{% static 'icons/search.svg' %}">
+      <img class="voice-search-icon" src="{% static 'icons/voice-search-icon.svg' %}">
+    </div>
+    <div class="right-section">
+      {% if user.is_authenticated %}
+        <!-- Display this section for authenticated users -->
+        <img class="upload-icon" src="{% static 'icons/upload.svg' %}">
+        <img class="youtubeapps-icon" src="{% static 'icons/youtube-apps.svg' %}">
+        <div class="notifications-div">
+          <img class="notifications-icon" src="{% static 'icons/notifications.svg' %}">
+          <div class="notifications-count">3</div>
+        </div> 
+        {% if user_profile %}
+          <img class="profile-picture" id="my_account" src="{{ user_profile.profile_picture.url }}">
+        {% else %}
+          <img class="profile-picture" id="my_account" src="{% static 'channel-pictures/default-profile-pic.jpeg' %}">
+        {% endif %}
+      {% else %}
+        <!-- Display this section for non-authenticated users -->
+        <a class="sign-btn" href="signin">
+          <div class="signin">
+            <img class="user-icon" src="{% static 'icons/user.png' %}">
+            <h3 class="signin-txt">Sign in</h3>
+          </div>
+        </a> 
+      {% endif %}
+    </div>
+    
+    <div class="my_account_div">
+      {% if user.is_authenticated %}
+          <h2>Hi, {{user.first_name}}</h2>
+      {% endif %}    
+      <form class="file-input-wrapper" method="post" action="{% url 'upload_profile_pic' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input class="input1" name="profile_pic" type="file" id="file-input" accept="image/*">
+        <label class="label1"  for="file-input">Add Profile Pic</label>
+      </form>
+      <a href="logout" class="btn">Logout</a>
+    </div>
+  </div>
+  `
+  
+  <div class="sidebar">
+    <div class="sidebar-link">
+      <img src="{% static 'icons/home.svg' %}" >
+      <div>Home</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/explore.svg' %}" >
+      <div>Explore</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/subscriptions.svg' %}" >
+      <div>Subscriptions</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/originals.svg' %}" >
+      <div>Originals</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/youtube-music.svg' %}" >
+      <div>YouTube Music</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/library.svg' %}" >
+      <div>Library </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  <div class="video-preview-grid">
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-1.webp' %}">
+        <div class="video-time">14:20</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-1.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Talking tech and AI with Google CEO Sundar Pichai!
+              </p>
+            
+            
+              <p class="video-author"> 
+                Marques Brownlee 
+              </p>
+            
+            
+              <p class="video-stats">
+                3.4M &#183; 6 months ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-2.webp' %}">
+        <div class="video-time">8:22</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-2.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Try Not To Laugh Challenge #9
+              </p>
+            
+            
+              <p class="video-author"> 
+                Markiplier 
+              </p>
+            
+            
+              <p class="video-stats">
+                3.4M &#183; 6 months ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-3.webp' %}">
+        <div class="video-time">9:13</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-3.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Crazy Tik Toks Taken Moments Before DISASTER
+              </p>
+            
+            
+              <p class="video-author"> 
+                SSSniperWolf
+              </p>
+            
+            
+              <p class="video-stats">
+                12M &#183; 1year ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-4.webp' %}">
+        <div class="video-time">22:09</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-4.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                The Simplest Math Problem No One Can Solve - Collatz Conjecure
+              </p>
+            
+            
+              <p class="video-author"> 
+                Veritasium 
+              </p>
+            
+            
+              <p class="video-stats">
+                18M &#183; 4 months ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-5.webp' %}">
+        <div class="video-time">11:17</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-5.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Kadene's Algorithm to Maximum Sum Subarray Problem
+              </p>
+            
+            
+              <p class="video-author"> 
+                CS Dojo 
+              </p>
+            
+            
+              <p class="video-stats">
+                519K &#183; 5 years ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-7.webp' %}">
+        <div class="video-time">19:59</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-7.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Anything You Can Fit In The I'll Pay For
+              </p>
+            
+            
+              <p class="video-author"> 
+                MrBeast
+              </p>
+            
+            
+              <p class="video-stats">
+                141M &#183; 1  year ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-7.webp' %}">
+        <div class="video-time">10:13</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-7.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Why Planes Don't Fly Over Tibet
+              </p>
+            
+            
+              <p class="video-author"> 
+                RealLifeLore
+              </p>
+            
+            
+              <p class="video-stats">
+                6.6M &#183; 1 year ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-8.webp' %}">
+        <div class="video-time">7:12</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-8.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Inside Tge World's Biggest 
+              </p>
+            
+            
+              <p class="video-author"> 
+                Marques Brownlee 
+              </p>
+            
+            
+              <p class="video-stats">
+                3.4M &#183; 6 months ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-9.webp' %}">
+        <div class="video-time">13:17</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-9.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                The SECRET to Super Human STRENGTH
+              </p>
+            
+            
+              <p class="video-author"> 
+                ThenX 
+              </p>
+            
+            
+              <p class="video-stats">
+                20M &#183; 3 years ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-10.webp' %}">
+        <div class="video-time">14:20</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-10.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                How The World's Largest Cruise Ship Makes 30,000 Meals Every Day
+              </p>
+            
+            
+              <p class="video-author"> 
+                Business Insider 
+              </p>
+            
+            
+              <p class="video-stats">
+                14M &#183; 1 year ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-11.webp' %}">
+        <div class="video-time">14:20</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-11.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                Dubai's Crazy UnderWater Train and Other ThingsOnly in Dubai
+              </p>
+            
+            
+              <p class="video-author"> 
+                Destination Tips 
+              </p>
+            
+            
+              <p class="video-stats">
+                3M &#183; 1 year ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+    <div  class="video-preview">
+      <div class="thumbnail-div">
+        <img class="thumbnail" src="{% static 'thumbnails/thumbnail-12.webp' %}">
+        <div class="video-time">14:20</div>
+      </div>
+      <div class="video-info-grid">
+      
+          <div class="channel-picture-div">
+            <img class="channel-picture" src="{% static 'channel-pictures/channel-12.jpeg' %}">
+          </div>
+          <div class="video-info">
+            
+              <p class="video-title">
+                what would Happen if you don't drink water?-Mia Nacamulli
+              </p>
+            
+            
+              <p class="video-author"> 
+                TED-Ed
+              </p>
+            
+            
+              <p class="video-stats">
+                12M &#183; 5 years ago
+              </p>
+            
+          </div>
+       
+      
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let my_account_div = document.querySelector('.my_account_div');
+
+    document.getElementById('my_account').onclick = () =>{
+      my_account_div.classList.toggle('active');
+    }
+  </script>
+  
+</body>
+</html>
