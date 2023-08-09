@@ -34,6 +34,7 @@ p
   font-size: 14px;
   margin-bottom: 10px ;
   line-height: 16px;
+  color: black;
   
 }
 .video-author,
@@ -63,8 +64,20 @@ p
 .video-preview-grid
 {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
   column-gap: 15px;
   row-gap: 20px;
   
+}
+@media (max-width: 768px) {
+  .video-preview-grid {
+    grid-template-columns: 1fr; /* Display 2 videos per column */
+  }
+}
+
+/* Responsive design for mobile view */
+@media (max-width: 480px) {
+  .video-preview-grid {
+    grid-template-columns: 1fr; /* Display 1 video per column */
+  }
 }

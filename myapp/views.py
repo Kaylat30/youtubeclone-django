@@ -4,11 +4,23 @@ from .models import Videos,UserProfile
 from django.contrib.auth.models import User, auth,AbstractUser
 from django.contrib import messages 
 from django.contrib.auth.decorators import login_required
+import random
 
 # Create your views here.
 def index(request):
-    videos = Videos.objects.all
-    return render(request,'index.html',{'videos':videos})
+    videos = list(Videos.objects.all())
+    random.shuffle(videos)
+
+    context ={
+        'videos' : videos[:12],
+    }
+    
+    return render(request,'index.html', context)
+
+def video(request , pk):
+    video = Videos.objects.get(id=pk)
+
+    return render(request ,'video.html',{'video':video})
 
 def signin(request):
     if request.method == 'POST':

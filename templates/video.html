@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>YouTube</title>
+  <link rel="icon" href="{% static 'icons/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'styles/video.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/header.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/body.css' %}">
+  <link rel="stylesheet" href="{% static 'styles/sidebar.css' %}">
+</head>
+<body>
+  
+  <div class="header-div">
+    <div class="left-section">
+      <img class="menu-icon" src="{% static 'icons/hamburger-menu.svg' %}">
+      <a href="/"><img class="youtube-icon" src="{% static 'icons/youtube-logo.svg' %}"></a>      
+    </div>
+    <div class="middle-section">
+      <input class="search-bar"  type="text" placeholder="Search">
+      <img class="search-icon" src="{% static 'icons/search.svg' %}">
+      <img class="voice-search-icon" src="{% static 'icons/voice-search-icon.svg' %}">
+    </div>
+    <div class="right-section">
+      {% if user.is_authenticated %}
+        <!-- Display the section for authenticated users -->
+        <img class="upload-icon" src="{% static 'icons/upload.svg' %}">
+        <img class="youtubeapps-icon" src="{% static 'icons/youtube-apps.svg' %}">
+        <div class="notifications-div">
+          <img class="notifications-icon" src="{% static 'icons/notifications.svg' %}">
+          <div class="notifications-count">3</div>
+        </div> 
+        {% if user_profile %}
+          <img class="profile-picture" id="my_account" src="{{ user_profile.profile_picture.url }}">
+        {% else %}
+          <img class="profile-picture" id="my_account" src="{% static 'channel-pictures/default-profile-pic.jpeg' %}">
+        {% endif %}
+      {% else %}
+        <!-- Display the section for non-authenticated users -->
+        <a class="sign-btn" href="signin">
+          <div class="signin">
+            <img class="user-icon" src="{% static 'icons/user.png' %}">
+            <h3 class="signin-txt">Sign in</h3>
+          </div>
+        </a> 
+      {% endif %}
+    </div>
+    
+    <div class="my_account_div">
+      {% if user.is_authenticated %}
+          <h2>Hi, {{user.first_name}}</h2>
+      {% endif %}    
+      <form class="file-input-wrapper" method="post" action="{% url 'upload_profile_pic' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input class="input1" name="profile_pic" type="file" id="file-input" accept="image/*">
+        <label class="label1"  for="file-input">Add Profile Pic</label>
+      </form>
+      <a href="logout" class="btn">Logout</a>
+    </div>
+  </div>
+  `
+  
+  <div class="sidebar">
+    <div class="sidebar-link">
+      <img src="{% static 'icons/home.svg' %}" >
+      <div><div><a href="/"></a>Home</div></div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/explore.svg' %}" >
+      <div>Explore</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/subscriptions.svg' %}" >
+      <div>Subscriptions</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/originals.svg' %}" >
+      <div>Originals</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/youtube-music.svg' %}" >
+      <div>YouTube Music</div>
+    </div>
+    <div class="sidebar-link">
+      <img src="{% static 'icons/library.svg' %}" >
+      <div>Library </div>
+    </div>
+  </div>
+
+        <div  class="video-preview">
+          <div class="thumbnail-div">
+            <img class="thumbnail" src="{{video.thumbnail.url}}" alt="didnt work">
+            <div class="video-time">{{video.video_time}}</div>
+          </div>
+          <div class="video-info-grid">
+          
+              <div class="channel-picture-div">
+                <img class="channel-picture" src="{{video.channel_picture.url}}" alt="not working">
+              </div>
+              <div class="video-info">
+                
+                  <p class="video-title">
+                    {{video.video_title}}
+                  </p>
+                
+                
+                  <p class="video-author"> 
+                    {{video.video_author}}
+                  </p>
+                
+                
+                  <p class="video-stats">
+                    {{video.views}} &#183; {{video.period}}
+                  </p>
+                
+              </div>     
+          
+          </div>
+        </div>   
+    
+
+  <script>
+    let my_account_div = document.querySelector('.my_account_div');
+
+    document.getElementById('my_account').onclick = () =>{
+      my_account_div.classList.toggle('active');
+    }
+  </script>
+  
+</body>
+</html>
