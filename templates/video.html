@@ -30,8 +30,8 @@
           <img class="notifications-icon" src="{% static 'icons/notifications.svg' %}">
           <div class="notifications-count">3</div>
         </div> 
-        {% if user_profile %}
-          <img class="profile-picture" id="my_account" src="{{ user_profile.profile_picture.url }}">
+        {% if profile_pic %}
+          <img class="profile-picture" id="my_account" src="{{ profile_pic.profile_picture.url }}">
         {% else %}
           <img class="profile-picture" id="my_account" src="{% static 'channel-pictures/default-profile-pic.jpeg' %}">
         {% endif %}

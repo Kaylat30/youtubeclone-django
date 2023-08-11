@@ -10,17 +10,37 @@ import random
 def index(request):
     videos = list(Videos.objects.all())
     random.shuffle(videos)
+    profile_pic = None  # Initialize as None
+    
+    if request.user.is_authenticated:  # Check if the user is authenticated
+        try:
+            profile_pic = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+            pass
 
     context ={
         'videos' : videos[:12],
+        'profile_pic' : profile_pic
     }
     
     return render(request,'index.html', context)
 
 def video(request , pk):
+    profile_pic = None
     video = Videos.objects.get(id=pk)
 
-    return render(request ,'video.html',{'video':video})
+    if request.user.is_authenticated:  # Check if the user is authenticated
+        try:
+            profile_pic = UserProfile.objects.get(user=request.user)
+        except UserProfile.DoesNotExist:
+            pass
+
+    context ={
+        'video' : video,
+        'profile_pic' : profile_pic
+    }
+
+    return render(request ,'video.html',context)
 
 def signin(request):
     if request.method == 'POST':
